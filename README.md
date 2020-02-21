@@ -1,3 +1,27 @@
+## For development
+
+```sh
+git clone https://github.com/CodingCreate101/yata.git
+
+npm install
+
+npm run start
+```
+
+## For production
+
+```sh
+git clone https://github.com/CodingCreate101/yata.git
+
+npm install
+
+npm run build
+
+node server.js
+```
+
+## Default text
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
