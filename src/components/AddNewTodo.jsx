@@ -8,13 +8,13 @@ function AddNewTodo(props) {
   const [newTodo, setNewTodo] = useState("");
 
   const onAdd = () => {
+    message.config({
+      top: "80vh",
+    });
     if (newTodo === "") {
-      message.config({
-        top: "80vh",
-      });
       message.error(
         <span>
-          Please enter something, asshole <Icon type="smile" />
+          Please enter something <Icon type="smile" />
         </span>,
         3
       );
@@ -26,6 +26,14 @@ function AddNewTodo(props) {
 
     // Empty the text field
     setNewTodo("");
+
+    // Display feedback message
+    message.success(
+      <span>
+        Item added <Icon type="smile" />
+      </span>,
+      3
+    );
   };
 
   const handleOnChange = (e) => {

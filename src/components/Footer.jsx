@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Affix, Button, Menu, Dropdown, Avatar, Icon } from "antd";
+import { Affix, Button, Menu, Dropdown, Avatar, Icon, message } from "antd";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
 import { addToHistory } from "../actions/todoHistoryActions";
@@ -38,6 +38,17 @@ function Footer(props) {
 
   const saveCurrentProgress = () => {
     addNewTodoHistory();
+
+    message.config({
+      top: "80vh",
+    });
+    // Display feedback message
+    message.success(
+      <span>
+        Saved successfully <Icon type="smile" />
+      </span>,
+      3
+    );
   };
 
   const menu = (

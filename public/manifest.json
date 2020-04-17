@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "YATA",
+  "name": "Yet another todo app",
+  "description": "Yet another todo app! But a better one, you will see ;)",
   "icons": [
     {
       "src": "favicon.ico",

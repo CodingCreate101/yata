@@ -1,5 +1,14 @@
 import React from "react";
-import { Row, Col, List, Icon, Checkbox, message, Button } from "antd";
+import {
+  Row,
+  Col,
+  List,
+  Icon,
+  Checkbox,
+  message,
+  Button,
+  Popconfirm,
+} from "antd";
 import { connect } from "react-redux";
 import { toggleTodoStatus, deleteTodoItem } from "../actions/todoActions";
 import { withRouter } from "react-router";
@@ -30,7 +39,9 @@ function TodoList(props) {
       hideMessage = message.error(
         <span>
           You can not update TODO values while editing template. <br />
-          <Button onClick={goBackToHomeScreen}>Go To Home Screen</Button>
+          <Button type="primary" onClick={goBackToHomeScreen}>
+            Go To Home Screen
+          </Button>
         </span>,
         5
       );
@@ -74,12 +85,15 @@ function TodoList(props) {
               </Checkbox>
               {/* Don't show this if we are from root path */}
               {isTemplatePage ? (
-                <Icon
-                  type="delete"
-                  theme="twoTone"
-                  twoToneColor="#ff0000"
-                  onClick={() => deleteItem(item)}
-                />
+                <Popconfirm
+                  placement="bottomRight"
+                  title={"Are you sure to delete this item?"}
+                  onConfirm={() => deleteItem(item)}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Icon type="delete" theme="twoTone" twoToneColor="#ff0000" />
+                </Popconfirm>
               ) : null}
             </List.Item>
           )}
