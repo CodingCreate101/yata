@@ -5,6 +5,11 @@ export const resetTodoData = () => {
   return async (dispatch, getState) => {
     const templateData = getState().todoList.todosList;
 
+    if (!templateData.length) {
+      console.info("There is no template yet");
+      return;
+    }
+
     const isTemplateUpdated = parseInt(
       (new Date() - new Date(templateData[0].createdAt)) /
         (1000 * 60 * 60 * 24),
@@ -62,6 +67,7 @@ export const toggleTodoStatus = (selectedTodoItem) => {
     );
     // Update the data at that index
     todoList[indexOfselectedTodoItem].status = !selectedTodoItem.status;
+    todoList[indexOfselectedTodoItem].updatedAt = new Date();
     setLocalStorage("todo-app-data", todoList);
     dispatch({
       type: "UPDATE_TODOS_LIST",

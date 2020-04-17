@@ -10,6 +10,11 @@ export const addToHistory = () => {
     // Fetch current todo list
     const currentTodoList = getState().todoList.todosList;
 
+    if (!currentTodoList.length) {
+      console.error("There is no template yet. Please add template.");
+      return;
+    }
+
     // Add current todo list to fetched history data
     const lastHistoryElement = todoHistory[todoHistory.length - 1] || [];
 
