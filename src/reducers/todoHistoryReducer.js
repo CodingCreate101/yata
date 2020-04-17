@@ -1,15 +1,15 @@
 import { getLocalStorage } from "../Utils/LocalStorage";
 
 const initialState = {
-  todosList: getLocalStorage("todo-app-data") || [],
+  todosHistory: getLocalStorage("todo-app-history") || [],
 };
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case "UPDATE_TODOS_LIST":
+    case "UPDATE_TODO_HISTORY_LIST":
       return {
         ...state,
-        todosList: payload,
+        todosHistory: payload,
       };
 
     default:

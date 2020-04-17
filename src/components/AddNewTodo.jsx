@@ -7,12 +7,10 @@ function AddNewTodo(props) {
   const { addNewTodoNow } = props;
   const [newTodo, setNewTodo] = useState("");
 
-  // Get data from DB
-
   const onAdd = () => {
     if (newTodo === "") {
       message.config({
-        top: "80vh"
+        top: "80vh",
       });
       message.error(
         <span>
@@ -23,13 +21,14 @@ function AddNewTodo(props) {
 
       return false;
     }
+    // Add todo to Store
     addNewTodoNow(newTodo);
-    setNewTodo("");
 
-    // Store in DB
+    // Empty the text field
+    setNewTodo("");
   };
 
-  const handleOnChange = e => {
+  const handleOnChange = (e) => {
     setNewTodo(e.target.value);
   };
   return (
@@ -66,9 +65,9 @@ function AddNewTodo(props) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    addNewTodoNow: newTodoItem => dispatch(addNewTodo(newTodoItem))
+    addNewTodoNow: (newTodoItem) => dispatch(addNewTodo(newTodoItem)),
   };
 };
 
