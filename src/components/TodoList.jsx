@@ -1,28 +1,70 @@
 import React from "react";
-import { Row, Col, List, Icon, Checkbox } from "antd";
+import { Row, Col, List, Icon, Checkbox, message, Button } from "antd";
 import { connect } from "react-redux";
 import { toggleTodoStatus, deleteTodoItem } from "../actions/todoActions";
+import { withRouter } from "react-router";
 
 function TodoList(props) {
-  const { todoList, updateTodoStatus, deleteTodoItemNow } = props;
+  const {
+    todoList,
+    updateTodoStatus,
+    deleteTodoItemNow,
+    match,
+    history,
+  } = props;
 
-  const handleCheck = item => {
+  let hideMessage;
+
+  const isTemplatePage = match.path === "/template";
+
+  const goBackToHomeScreen = () => {
+    setTimeout(hideMessage, 5);
+    history.push("/");
+  };
+
+  const handleCheck = (item) => {
+    if (isTemplatePage) {
+      message.config({
+        top: "80vh",
+      });
+      hideMessage = message.error(
+        <span>
+          You can not update TODO values while editing template. <br />
+          <Button onClick={goBackToHomeScreen}>Go To Home Screen</Button>
+        </span>,
+        5
+      );
+
+      return;
+    }
     updateTodoStatus(item);
   };
 
-  const deleteItem = item => {
+  const deleteItem = (item) => {
     deleteTodoItemNow(item);
   };
 
   return (
     <Row type="flex" justify="center" style={{ marginTop: "20px" }}>
       <Col lg={{ span: 6 }}></Col>
-      <Col xs={{ span: 22 }} lg={{ span: 6 }}>
+      <Col xs={{ span: 22 }} lg={{ span: 6 }} style={{ paddingBottom: 40 }}>
+        {isTemplatePage ? (
+          <h3>Template</h3>
+        ) : (
+          <h3>
+            {new Date().toLocaleDateString("delhi", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </h3>
+        )}
         <List
           size="small"
           bordered
           dataSource={todoList}
-          renderItem={item => (
+          renderItem={(item) => (
             <List.Item>
               <Checkbox
                 checked={item.status}
@@ -30,12 +72,15 @@ function TodoList(props) {
               >
                 {item.title}
               </Checkbox>
-              <Icon
-                type="delete"
-                theme="twoTone"
-                twoToneColor="#ff0000"
-                onClick={() => deleteItem(item)}
-              />
+              {/* Don't show this if we are from root path */}
+              {isTemplatePage ? (
+                <Icon
+                  type="delete"
+                  theme="twoTone"
+                  twoToneColor="#ff0000"
+                  onClick={() => deleteItem(item)}
+                />
+              ) : null}
             </List.Item>
           )}
         />
@@ -45,15 +90,19 @@ function TodoList(props) {
   );
 }
 
-const mapStateToProps = state => ({
-  todoList: state.todoList.todosList
+const mapStateToProps = (state) => ({
+  todoList: state.todoList.todosList,
 });
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    updateTodoStatus: selectedItem => dispatch(toggleTodoStatus(selectedItem)),
-    deleteTodoItemNow: selectedItem => dispatch(deleteTodoItem(selectedItem))
+    updateTodoStatus: (selectedItem) =>
+      dispatch(toggleTodoStatus(selectedItem)),
+    deleteTodoItemNow: (selectedItem) => dispatch(deleteTodoItem(selectedItem)),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(TodoList));
