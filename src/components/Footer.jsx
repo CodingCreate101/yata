@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { addToHistory } from "../actions/todoHistoryActions";
 
 function Footer(props) {
-  const { location, history, addNewTodoHistory } = props;
+  const { location, history, addNewTodoHistory, todoList } = props;
   const [buttonProperties, setButtonProperties] = useState({
     locationPath: "",
     locationName: "",
@@ -47,11 +47,13 @@ function Footer(props) {
           {buttonProperties.locationName}
         </Button>
       </Menu.Item>
-      <Menu.Item>
-        <Button onClick={saveCurrentProgress} type="link">
-          Save today's progress
-        </Button>
-      </Menu.Item>
+      {todoList.length ? (
+        <Menu.Item>
+          <Button onClick={saveCurrentProgress} type="link">
+            Save today's progress
+          </Button>
+        </Menu.Item>
+      ) : null}
     </Menu>
   );
 
@@ -72,10 +74,14 @@ function Footer(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  todoList: state.todoList.todosList,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     addNewTodoHistory: () => dispatch(addToHistory()),
   };
 };
 
-export default connect(null, mapDispatchToProps)(withRouter(Footer));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Footer));
