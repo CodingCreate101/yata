@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Button, message, Icon } from "antd";
+import { Button, message, Icon, Tag } from "antd";
 
 function DevTools(props) {
   const { todoList, todoHistory } = props;
@@ -30,7 +30,10 @@ function DevTools(props) {
   };
   return (
     <div style={{ maxWidth: "100vw", wordWrap: "break-word", padding: 10 }}>
-      <h2>Developer Tools</h2>
+      <h2>
+        Developer Tools - <Tag color="magenta">Version: 1.9.0</Tag>
+      </h2>
+      <hr />
       <Button
         onClick={() =>
           navigator.clipboard
@@ -59,6 +62,9 @@ function DevTools(props) {
       <br />
       <h4>History: </h4>
       <code>{JSON.stringify(todoHistory)}</code>
+      <br />
+      <br />
+      <hr />
     </div>
   );
 }

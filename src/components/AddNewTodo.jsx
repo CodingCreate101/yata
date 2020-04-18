@@ -36,7 +36,23 @@ function AddNewTodo(props) {
     );
   };
 
+  let hideMessage = false;
   const handleOnChange = (e) => {
+    const charLimit = 36;
+    if (e.target.value.length >= charLimit) {
+      message.config({
+        top: "80vh",
+      });
+      if (!hideMessage) {
+        hideMessage = message.error(
+          `Oops! Only ${charLimit} chars are allowed`,
+          5,
+          () => {
+            hideMessage = false;
+          }
+        );
+      }
+    }
     setNewTodo(e.target.value);
   };
   return (
@@ -53,7 +69,9 @@ function AddNewTodo(props) {
               <Input
                 placeholder="Enter new todo item here"
                 value={newTodo}
+                maxLength={36}
                 onChange={handleOnChange}
+                allowClear={true}
               />
             </Col>
             <Col

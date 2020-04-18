@@ -37,6 +37,36 @@ export const resetTodoData = () => {
   };
 };
 
+export const reorderTemplateItems = (oderDirection, itemIndex) => {
+  return async (dispatch, getState) => {
+    const deepCopyTodoList = JSON.parse(
+      JSON.stringify(getState().todoList.todosList)
+    );
+    if (oderDirection === "up") {
+      if (!itemIndex) {
+        return;
+      }
+      const temp = deepCopyTodoList[itemIndex];
+      deepCopyTodoList[itemIndex] = deepCopyTodoList[itemIndex - 1];
+      deepCopyTodoList[itemIndex - 1] = temp;
+    } else if (oderDirection === "down") {
+      if (itemIndex >= deepCopyTodoList.length - 1) {
+        return;
+      }
+      const temp = deepCopyTodoList[itemIndex];
+      deepCopyTodoList[itemIndex] = deepCopyTodoList[itemIndex + 1];
+      deepCopyTodoList[itemIndex + 1] = temp;
+    }
+
+    setLocalStorage("todo-app-data", deepCopyTodoList);
+
+    dispatch({
+      type: "UPDATE_TODOS_LIST",
+      payload: deepCopyTodoList,
+    });
+  };
+};
+
 export const addNewTodo = (newTodoItem) => {
   return async (dispatch, getState) => {
     const todoList = JSON.parse(JSON.stringify(getState().todoList.todosList));

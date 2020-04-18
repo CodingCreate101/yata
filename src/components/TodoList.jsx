@@ -10,8 +10,13 @@ import {
   Popconfirm,
 } from "antd";
 import { connect } from "react-redux";
-import { toggleTodoStatus, deleteTodoItem } from "../actions/todoActions";
+import {
+  toggleTodoStatus,
+  deleteTodoItem,
+  reorderTemplateItems,
+} from "../actions/todoActions";
 import { withRouter } from "react-router";
+import { trimStringTo } from "../Utils/StringMan";
 
 function TodoList(props) {
   const {
@@ -20,6 +25,7 @@ function TodoList(props) {
     deleteTodoItemNow,
     match,
     history,
+    reorderItem,
   } = props;
 
   let hideMessage;
@@ -75,26 +81,46 @@ function TodoList(props) {
           size="small"
           bordered
           dataSource={todoList}
-          renderItem={(item) => (
+          renderItem={(item, index) => (
             <List.Item>
               <Checkbox
                 checked={item.status}
                 onChange={() => handleCheck(item)}
               >
-                {item.title}
+                {isTemplatePage ? trimStringTo(22, item.title) : item.title}
               </Checkbox>
               {/* Don't show this if we are from root path */}
-              {isTemplatePage ? (
-                <Popconfirm
-                  placement="bottomRight"
-                  title={"Are you sure to delete this item?"}
-                  onConfirm={() => deleteItem(item)}
-                  okText="Yes"
-                  cancelText="No"
-                >
-                  <Icon type="delete" theme="twoTone" twoToneColor="#ff0000" />
-                </Popconfirm>
-              ) : null}
+              <span style={{ boxSizing: "border-box" }}>
+                {isTemplatePage ? (
+                  <>
+                    <Icon
+                      type="up-square"
+                      theme="twoTone"
+                      style={{ paddingRight: " 10px", fontSize: 18 }}
+                      onClick={() => reorderItem("up", index)}
+                    />
+                    <Icon
+                      type="down-square"
+                      theme="twoTone"
+                      style={{ paddingRight: " 15px", fontSize: 18 }}
+                      onClick={() => reorderItem("down", index)}
+                    />
+                    <Popconfirm
+                      placement="bottomRight"
+                      title={"Are you sure to delete this item?"}
+                      onConfirm={() => deleteItem(item)}
+                      okText="Yes"
+                      cancelText="No"
+                    >
+                      <Icon
+                        type="delete"
+                        theme="twoTone"
+                        twoToneColor="#ff0000"
+                      />
+                    </Popconfirm>
+                  </>
+                ) : null}
+              </span>
             </List.Item>
           )}
         />
@@ -113,6 +139,8 @@ const mapDispatchToProps = (dispatch) => {
     updateTodoStatus: (selectedItem) =>
       dispatch(toggleTodoStatus(selectedItem)),
     deleteTodoItemNow: (selectedItem) => dispatch(deleteTodoItem(selectedItem)),
+    reorderItem: (orderDirection, index) =>
+      dispatch(reorderTemplateItems(orderDirection, index)),
   };
 };
 
