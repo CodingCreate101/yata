@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import TodoTemplate from "./components/TodoTemplate";
 import Home from "./components/Home";
 import Footer from "./components/Footer";
+import DevTools from "./components/DevTools";
 import { resetTodoData } from "./actions/todoActions";
 import { connect } from "react-redux";
 
@@ -19,6 +20,7 @@ function App(props) {
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/template" component={TodoTemplate} />
+        <Route exact path="/devtools" component={DevTools} />
       </Switch>
       <Footer />
     </BrowserRouter>

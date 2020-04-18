@@ -28,7 +28,7 @@ function Footer(props) {
         break;
 
       default:
-        return null;
+        return undefined;
     }
   }, [location.pathname]);
 

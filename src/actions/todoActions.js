@@ -10,11 +10,8 @@ export const resetTodoData = () => {
       return;
     }
 
-    const isTemplateUpdated = parseInt(
-      (new Date() - new Date(templateData[0].createdAt)) /
-        (1000 * 60 * 60 * 24),
-      10
-    );
+    const isTemplateUpdated =
+      new Date().getDate() - new Date(templateData[0].createdAt).getDate();
 
     if (!isTemplateUpdated) {
       console.log("Data is already updated");
@@ -30,6 +27,8 @@ export const resetTodoData = () => {
         updatedAt: new Date(),
       };
     });
+
+    setLocalStorage("todo-app-data", updatedTodoList);
 
     dispatch({
       type: "UPDATE_TODOS_LIST",

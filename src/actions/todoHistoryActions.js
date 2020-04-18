@@ -22,11 +22,9 @@ export const addToHistory = () => {
     if (!lastHistoryElement.length) {
       todoHistory.push(currentTodoList);
     } else {
-      const isTodayDataNotExists = parseInt(
-        (new Date() - new Date(lastHistoryElement[0].createdAt)) /
-          (1000 * 60 * 60 * 24),
-        10
-      );
+      const isTodayDataNotExists =
+        new Date().getDate() -
+        new Date(lastHistoryElement[0].createdAt).getDate();
 
       // Check if today's data already exists
       if (isTodayDataNotExists) {
