@@ -78,11 +78,14 @@ function HistoryPage({ todoHistory, history }) {
             padding: " 10px 0",
           }}
         >
-          <Icon
-            style={{ textAlign: "left" }}
-            type="arrow-left"
-            onClick={() => navigateThroughHistory("backward")}
-          />
+          {selectedDayIndex === 0 ? null : (
+            <Icon
+              style={{ textAlign: "left" }}
+              type="arrow-left"
+              onClick={() => navigateThroughHistory("backward")}
+            />
+          )}
+
           <span style={dateStyles}>
             {selectedDay.length ? (
               <>
