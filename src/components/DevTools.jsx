@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button, message, Icon, Tag } from "antd";
 
 function DevTools(props) {
-  const version = "Version: 1.9.1";
+  const version = "Version: 1.10.1";
   const { todoList, todoHistory } = props;
   const onSuccess = () => {
     message.config({
