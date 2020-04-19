@@ -25,7 +25,10 @@ function HistoryPage({ todoHistory, history }) {
 
   const [dayDifference, setDayDifference] = useState(
     todoHistory.length && todoHistory[todoHistory.length - 1].length
-      ? "Today"
+      ? formatWithDetails(
+          new Date() -
+            new Date(todoHistory[todoHistory.length - 1][0].createdAt)
+        )
       : false
   );
 
@@ -66,6 +69,7 @@ function HistoryPage({ todoHistory, history }) {
       setDayDifference(diff);
     }
   };
+
   return (
     <Row type="flex" justify="center" style={{ marginTop: "20px" }}>
       <Col lg={{ span: 6 }}></Col>
@@ -111,7 +115,9 @@ function HistoryPage({ todoHistory, history }) {
             )}
           </span>
 
-          {dayDifference === "Today" ? (
+          {dayDifference &&
+          todoHistory[todoHistory.length - 1][0].createdAt ===
+            selectedDay[0].createdAt ? (
             <Icon
               type="home"
               style={{ textAlign: "right" }}

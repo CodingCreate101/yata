@@ -26,12 +26,10 @@ export function formatWithDetails(milliseconds) {
     return `${month}month(s) ${pad(dd)}day(s) ago`;
   }
   if (dd) {
-    let suffix = "day";
-
-    if (dd > 1) {
-      suffix = "days";
+    if (dd === 1) {
+      return `Yesterday`;
     }
-    return `${dd} ${suffix} ago`;
+    return `${dd} days ago`;
   }
 
   return "Today";
