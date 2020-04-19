@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button, message, Icon, Tag } from "antd";
 
 function DevTools(props) {
+  const version = "Version: 1.9.1";
   const { todoList, todoHistory } = props;
   const onSuccess = () => {
     message.config({
@@ -31,7 +32,7 @@ function DevTools(props) {
   return (
     <div style={{ maxWidth: "100vw", wordWrap: "break-word", padding: 10 }}>
       <h2>
-        Developer Tools - <Tag color="magenta">Version: 1.9.0</Tag>
+        Developer Tools - <Tag color="magenta">{version}</Tag>
       </h2>
       <hr />
       <Button
