@@ -61,6 +61,16 @@ function TodoList(props) {
     deleteTodoItemNow(item);
   };
 
+  const dateStyles = {
+    fontWeight: 500,
+    fontSize: "20px",
+    width: "auto",
+    textAlign: "center",
+    boxSizing: "border-box",
+    lineHeight: 0.8,
+    height: "25px",
+  };
+
   return (
     <Row type="flex" justify="center" style={{ marginTop: "20px" }}>
       <Col lg={{ span: 6 }}></Col>
@@ -68,14 +78,28 @@ function TodoList(props) {
         {isTemplatePage ? (
           <h3>Template</h3>
         ) : (
-          <h3>
-            {new Date().toLocaleDateString("delhi", {
-              weekday: "long",
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </h3>
+          <span
+            style={{
+              display: "grid",
+              gridAutoFlow: "column",
+              fontSize: 22,
+              padding: " 10px 0",
+            }}
+          >
+            <Icon
+              style={{ textAlign: "left" }}
+              type="arrow-left"
+              onClick={() => history.push("/history")}
+            />
+            <span style={dateStyles}>
+              {new Date().toLocaleDateString("delhi", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </span>
+          </span>
         )}
         <List
           size="small"

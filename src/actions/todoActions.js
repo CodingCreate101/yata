@@ -1,5 +1,6 @@
 import { setLocalStorage } from "../Utils/LocalStorage";
 import shortid from "shortid";
+import { areWeInFuture } from "../Utils/Duration";
 
 export const resetTodoData = () => {
   return async (dispatch, getState) => {
@@ -10,11 +11,11 @@ export const resetTodoData = () => {
       return;
     }
 
-    const isTemplateUpdated =
-      new Date().getDate() - new Date(templateData[0].createdAt).getDate();
-
+    const isTemplateUpdated = areWeInFuture(
+      new Date() - new Date(templateData[0].createdAt)
+    );
     if (!isTemplateUpdated) {
-      console.log("Data is already updated");
+      console.info("Data is already updated");
       return;
     }
 

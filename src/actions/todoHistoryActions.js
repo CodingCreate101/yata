@@ -1,4 +1,5 @@
 import { setLocalStorage } from "../Utils/LocalStorage";
+import { areWeInFuture } from "../Utils/Duration";
 
 export const addToHistory = () => {
   return async (dispatch, getState) => {
@@ -22,9 +23,13 @@ export const addToHistory = () => {
     if (!lastHistoryElement.length) {
       todoHistory.push(currentTodoList);
     } else {
-      const isTodayDataNotExists =
-        new Date().getDate() -
-        new Date(lastHistoryElement[0].createdAt).getDate();
+      // TODO: Make sure this is working
+      const isTodayDataNotExists = areWeInFuture(
+        new Date() - new Date(lastHistoryElement[0].createdAt)
+      );
+      // const isTodayDataNotExists =
+      //   new Date().getDate() -
+      //   new Date(lastHistoryElement[0].createdAt).getDate();
 
       // Check if today's data already exists
       if (isTodayDataNotExists) {

@@ -26,6 +26,12 @@ function Footer(props) {
           locationName: "Edit Template >",
         });
         break;
+      case "/history":
+        setButtonProperties({
+          locationPath: "/",
+          locationName: "Home >",
+        });
+        break;
 
       default:
         return undefined;
