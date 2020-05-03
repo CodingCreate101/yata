@@ -1,3 +1,10 @@
+## About the app
+Name of this app "Yata", yet another Todo app. But it's supposed to be "Yaha", yet another habit app. It will be eventually Yaha. Leaving that aside, the way it works is, you create something called "template" as in, habit template. Which repeats everyday. You check each one as you complete those "Todos" for that day.. and so on for each day.
+
+You can always edit/update the template habit list based on your life goals.
+
+Apart from these main features, there is another additional option to save your progress, meaning at the end of the day once you mark all the habits that you've completed, you may save the "progress", meaning, it stores your today's habit updates to its "history", so that in future when I add more features like some kind of reporting, that data can be initialized to see which habits are sticking and which habits you are still struggling with.. that'd be very helpful. And ALL data stays with you. There is no external database to this app. So, nobody can access your data other than from your phone directly.
+
 ## For development
 
 ```sh
